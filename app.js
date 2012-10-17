@@ -5,7 +5,7 @@
 
 var express = require('express')
   , controllers = require('./controllers')
-  , user = require('./controllers/user')
+  , recipe = require('./controllers/recipe')
   , http = require('http')
   , mongoose = require('mongoose')
   , path = require('path');
@@ -31,14 +31,14 @@ app.configure('development', function(){
 });
 
 app.get('/', controllers.index);
-app.get('/users', user.list);
+app.get('/recipes', recipe.list);
 
 var db = mongoose.createConnection('mongodb://localhost/mealPlanner');
 db.on('error', function(err) {
 	console.log("Can't connect to mongodb");
 	console.dir(err);
 });
-db.on('open', function() {
+db.once('open', function() {
 	console.log('Connected to mongodb');
 	http.createServer(app).listen(app.get('port'), function(){
 		console.log("Express server listening on port " + app.get('port'));
