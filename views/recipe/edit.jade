@@ -1,4 +1,8 @@
-form(action='/recipe/#{recipe.id}',method='post')
-  label(for='name') Name
-  input#name(type='text',name='name',value='#{recipe.name}')
-  input(type='submit',value='Save')
+extends ../layout
+
+block content
+  h2 Edit #{recipe.name}
+  form(action='/recipe/#{recipe.id}',method='post')
+    label(for='name') Name
+    input#name(type='text',name='name',value='#{recipe.name}')
+    input(type='submit',value='Save')

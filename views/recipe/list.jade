@@ -1,4 +1,7 @@
-ul
-each recipe in recipes
-  li 
-    a(href='/recipe/#{recipe.id}')= recipe.name
+extends ../layout
+
+block content
+  ul.nav.nav-list
+    each recipe in recipes
+      li 
+        a(href='/recipe/#{recipe.id}')= recipe.name

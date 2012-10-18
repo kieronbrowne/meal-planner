@@ -1,2 +1,5 @@
-h2= recipe.name
-a(href='/recipe/#{recipe.id}/edit') Edit
+extends ../layout
+
+block content
+  h2= recipe.name
+  a(href='/recipe/#{recipe.id}/edit') Edit

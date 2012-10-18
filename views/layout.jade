@@ -1,7 +1,30 @@
 doctype 5
-html
+html(lang='en')
   head
     title= title
-    link(rel='stylesheet', href='/stylesheets/style.css')
+    link(rel='stylesheet', href='/bootstrap/css/bootstrap.min.css')
+    style
+      body { padding-top: 60px; }
+    script(src='http://code.jquery.com/jquery-latest.js')
+    script(src='/bootstrap/js/bootstrap.min.js')
   body
-    block content
+    .navbar.navbar-fixed-top
+      .navbar-inner
+        .container-fluid
+          a.brand(href="/") Meal Planner
+          p.navbar-text.pull-right
+            | Logged in as 
+            a(href="#") Username
+          ul.nav
+            li
+              a(href="/recipes") Recipes
+            li
+              a(href="#contact") Contact
+            li.dropdown
+              a.dropdown-toggle(href="#",data-toggle="dropdown") Config
+                b.caret
+              ul.dropdown-menu
+                li
+                  a(href="#item1") Item 1
+    .container-fluid
+      block content
