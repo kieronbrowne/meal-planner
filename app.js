@@ -32,13 +32,16 @@ app.configure('development', function(){
 
 app.get('/', controllers.index);
 app.get('/recipes', recipe.list);
+app.get('/recipe/:id', recipe.show);
+app.get('/recipe/:id/edit', recipe.edit);
+app.post('/recipe/:id', recipe.update);
 
-var db = mongoose.createConnection('mongodb://localhost/mealPlanner');
-db.on('error', function(err) {
-	console.log("Can't connect to mongodb");
+mongoose.connect('localhost', 'mealPlanner');
+mongoose.connection.on('error', function(err) {
+	console.log("MongoDB error");
 	console.dir(err);
 });
-db.once('open', function() {
+mongoose.connection.once('open', function() {
 	console.log('Connected to mongodb');
 	http.createServer(app).listen(app.get('port'), function(){
 		console.log("Express server listening on port " + app.get('port'));

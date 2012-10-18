@@ -1,3 +1,4 @@
 ul
 each recipe in recipes
-  li= recipe.name
+  li 
+    a(href='/recipe/#{recipe.id}')= recipe.name
