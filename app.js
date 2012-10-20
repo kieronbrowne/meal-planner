@@ -34,7 +34,7 @@ app.get('/', controllers.index);
 app.get('/recipes', recipe.list);
 app.get('/recipe/:id', recipe.show);
 app.get('/recipe/:id/edit', recipe.edit);
-app.post('/recipe/:id', recipe.update);
+app.put('/recipe/:id', recipe.update);
 
 mongoose.connect('localhost', 'mealPlanner');
 mongoose.connection.on('error', function(err) {

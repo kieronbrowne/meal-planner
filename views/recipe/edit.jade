@@ -3,6 +3,7 @@ extends ../layout
 block content
   h2 Edit #{recipe.name}
   form(action='/recipe/#{recipe.id}',method='post')
+    input(type='hidden',name='_method',value='put')
     label(for='name') Name
     input#name(type='text',name='name',value='#{recipe.name}')
     input(type='submit',value='Save')
