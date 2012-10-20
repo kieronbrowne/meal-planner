@@ -5,8 +5,9 @@ html(lang='en')
     link(rel='stylesheet', href='/bootstrap/css/bootstrap.min.css')
     style
       body { padding-top: 60px; }
-    script(src='http://code.jquery.com/jquery-latest.js')
-    script(src='/bootstrap/js/bootstrap.min.js')
+    block scripts
+      script(src='http://code.jquery.com/jquery-latest.js')
+      script(src='/bootstrap/js/bootstrap.min.js')
   body
     .navbar.navbar-fixed-top
       .navbar-inner
@@ -24,7 +25,11 @@ html(lang='en')
               a.dropdown-toggle(href="#",data-toggle="dropdown") Config
                 b.caret
               ul.dropdown-menu
-                li
-                  a(href="#item1") Item 1
+                li.dropdown.submenu
+                  a.dropdown-toggle(href="#",data-toggle="dropdown") Item 1
+                    b.caret
+                  ul.dropdown-menu
+                    li
+                      a(href="#") Item 1.1
     .container-fluid
       block content

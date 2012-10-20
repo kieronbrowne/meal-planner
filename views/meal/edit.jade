@@ -1,0 +1,11 @@
+extends ../layout
+
+block content
+  form(method='post',action='/meal/'+meal.id)
+    input(type='hidden',name='_method',value='put')
+    label(for='date') Date
+    input#date.datepicker(name='date',value=meal.date)
+    label(for='name') Meal
+    input#meal(name='meal',value=meal.name)
+    input.btn.btn-success(type='submit',value='Save')
+    a.btn(href='/') Cancel
