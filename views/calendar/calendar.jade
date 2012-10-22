@@ -17,16 +17,18 @@ script
     });
   };
 
+  var showPopup = function(content, status, jqXHR) {
+    $(content).modal('show');
+  };
+
   var handleDayClick = function(date, allDay, jsEvent, view) {
     $.get('/meal/new',{day: new Date(date).getTime()}, showPopup);
   };
 
-  var showPopup = function(content, status, jqXHR) {
-    $(content).modal('show');
-  };
   var handleEventClick = function(event, jsEvent, view) {
     $.get('/meal/'+event.id, {}, showPopup);
   };
+
   var handleHover = function(event, jsEvent, view) {
     var delForm = "<form class='delForm pull-right' action='/meal/"+event.id+"' method='post' style='display: inline';'>";
     delForm += "<input type='hidden' name='_method' value='delete'>";
@@ -34,9 +36,11 @@ script
     delForm += "</form";
     $(this).children().append(delForm);
   };
+
   var handleHoverEnd = function(event, jsEvent, view) {
     $('form.delForm', this).remove();
   };
+
   $(document).ready(function() {
     $('#calendar').fullCalendar({
       events: '/meal/calendar',
