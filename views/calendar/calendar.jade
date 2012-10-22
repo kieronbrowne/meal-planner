@@ -6,7 +6,7 @@ script
     $.post(form.attr('action'), form.serialize(), function(data, status) {
       if (status) {
         var ev = $('#calendar').fullCalendar('clientEvents', data.id);
-        if (ev) {
+        if (ev.length) {
           ev = ev[0];
           ev.start = data.start;
           ev.title = data.title;
