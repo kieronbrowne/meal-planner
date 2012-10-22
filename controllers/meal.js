@@ -31,7 +31,9 @@ exports.create = function(req, res) {
 	meal.date = date;
 	meal.name = name;
 	meal.save(function(err) {
-		res.redirect('/');
+		if (!err) {
+			return res.send({title: meal.name, start: meal.date, id: meal.id});
+		}
 	});
 };
 
@@ -43,7 +45,6 @@ exports.edit = function(req, res) {
 };
 
 exports.update = function(req, res) {
-	console.log('asdf');
 	var id = req.params.id;
 	var date = new Date(req.body.date);
 	date.setHours(12);
@@ -52,6 +53,12 @@ exports.update = function(req, res) {
 		meal.date = date;
 		meal.name = name;
 		meal.save(function(err) {
+			if (!err) {
+				return res.send({title: meal.name, start: meal.date, id: meal.id});
+			}
+		});
+	});
+};
 			res.redirect('/');
 		});
 	});

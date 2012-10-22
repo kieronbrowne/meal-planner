@@ -1,0 +1,54 @@
+#calendar
+
+script
+  var handleSave = function(btn) {
+    var form = $(btn).closest('form');
+    $.post(form.attr('action'), form.serialize(), function(data, status) {
+      if (status) {
+        var ev = $('#calendar').fullCalendar('clientEvents', data.id);
+        if (ev) {
+          ev = ev[0];
+          ev.start = data.start;
+          ev.title = data.title;
+          $('#calendar').fullCalendar('updateEvent', ev);
+        } else {
+        $('#calendar').fullCalendar('renderEvent', data);
+        }
+        var popup = form.closest('.modal');
+        popup.modal('hide');
+      }
+    });
+  };
+
+  var handleDayClick = function(date, allDay, jsEvent, view) {
+    $.get('/meal/new',{day: new Date(date).getTime()}, showPopup);
+  };
+
+  var showPopup = function(content, status, jqXHR) {
+    $(content).modal('show');
+  };
+  var handleEventClick = function(event, jsEvent, view) {
+    $.get('/meal/'+event.id, {}, showPopup);
+  };
+  var handleHover = function(event, jsEvent, view) {
+    var delForm = "<form class='delForm pull-right' action='/meal/"+event.id+"' method='post' style='display: inline';'>";
+    delForm += "<input type='hidden' name='_method' value='delete'>";
+    delForm += "<input type='submit' value='X' class='btn btn-link' onclick='//return confirm(\"Really delete?\");'>";
+    delForm += "</form";
+    $(this).children().append(delForm);
+  };
+  var handleHoverEnd = function(event, jsEvent, view) {
+    $('form.delForm', this).remove();
+  };
+  $(document).ready(function() {
+    $('#calendar').fullCalendar({
+      events: '/meal/calendar',
+      defaultView: 'basicWeek',
+      height: 180,
+      firstDay: 6,
+      dayClick: handleDayClick,
+      eventClick: handleEventClick,
+      eventMouseover: handleHover,
+      eventMouseout: handleHoverEnd,
+    });
+  });

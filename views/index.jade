@@ -9,22 +9,4 @@ block content
     h1= title
     p Welcome to #{title}
 
-  #calendar
-
-  script
-    var handleDayClick = function(date, allDay, jsEvent, view) {
-      window.location = '/meal/new?day='+new Date(date).getTime();
-    };
-    var handleEventClick = function(event, jsEvent, view) {
-      window.location = '/meal/'+event.id;
-    };
-    $(document).ready(function() {
-      $('#calendar').fullCalendar({
-        events: '/meal/calendar',
-        defaultView: 'basicWeek',
-        height: 180,
-        firstDay: 6,
-        dayClick: handleDayClick,
-        eventClick: handleEventClick
-      });
-    });
+  include calendar/calendar

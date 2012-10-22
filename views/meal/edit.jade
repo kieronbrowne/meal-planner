@@ -1,11 +1,14 @@
-extends ../layout
-
-block content
+.modal.hide.fade.in#createMeal(tabindex="-1",role="dialog")
   form(method='post',action='/meal/'+meal.id)
     input(type='hidden',name='_method',value='put')
-    label(for='date') Date
-    input#date.datepicker(name='date',value=meal.date)
-    label(for='name') Meal
-    input#meal(name='meal',value=meal.name)
-    input.btn.btn-success(type='submit',value='Save')
-    a.btn(href='/') Cancel
+    .modal-header
+      button.close(type="button",data-dismiss="modal") x
+      h3 Modify Meal
+    .modal-body
+      label(for='date') Date
+      input#date.datepicker(name='date',value=meal.date)
+      label(for='name') Meal
+      input#meal(name='meal',value=meal.name)
+    .modal-footer
+        button#createMealSave.btn.btn-success(type='button',onclick='handleSave(this)') Save
+        button.btn(type="button",data-dismiss="modal") Cancel
