@@ -18,7 +18,8 @@ script
   };
 
   var showPopup = function(content, status, jqXHR) {
-    $(content).modal('show');
+    var form = $(content).modal('show');
+    initWidgets(form);
   };
 
   var handleDayClick = function(date, allDay, jsEvent, view) {
