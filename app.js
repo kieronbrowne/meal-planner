@@ -43,6 +43,7 @@ app.get('/meal/new', meal.editNew);
 app.get('/meal/:id', meal.edit);
 app.post('/meal', meal.create);
 app.put('/meal/:id', meal.update);
+app.delete('/meal/:id', meal.delete);
 
 mongoose.connect('localhost', 'mealPlanner');
 mongoose.connection.on('error', function(err) {

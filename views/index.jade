@@ -3,6 +3,10 @@ extends layout
 append scripts
   link(rel='stylesheet',href='/fullcalendar/fullcalendar.css')
   script(src='fullcalendar/fullcalendar.js')
+  style
+    form.delForm {padding: 0; margin: 0;}
+    form.delForm input {padding: 0;padding-right: 4px;font-size: 90%; color: white;}
+    form.delForm .btn-link:hover {color: white; text-decoration: none; font-weight: bold;}
 
 block content
   .hero-unit
