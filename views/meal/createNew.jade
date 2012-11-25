@@ -5,7 +5,7 @@
       h3 Add Meal
     .modal-body
       label(for='date') Date
-      input#date.datepicker(name='date',value=meal.date)
+      input#date.datepicker(name='date',value=meal.getDateStr())
       label(for='name') Meal
       input#meal(name='meal',value=meal.name)
     .modal-footer

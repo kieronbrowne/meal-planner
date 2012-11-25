@@ -1,4 +1,5 @@
 var Meal = require('../models/meal');
+var DateUtils = require('../utils/date');
 
 exports.calendar = function(req, res) {
 	var start = new Date(1000 * req.query.start);
@@ -24,8 +25,7 @@ exports.editNew = function(req, res) {
 };
 
 exports.create = function(req, res) {
-	var date = new Date(req.body.date);
-	date.setHours(12);
+	var date = DateUtils.strToDate(req.body.date);
 	var name = req.body.meal;
 	var meal = new Meal();
 	meal.date = date;
@@ -46,8 +46,7 @@ exports.edit = function(req, res) {
 
 exports.update = function(req, res) {
 	var id = req.params.id;
-	var date = new Date(req.body.date);
-	date.setHours(12);
+	var date = DateUtils.strToDate(req.body.date);
 	var name = req.body.meal;
 	Meal.findById(id, function(err, meal) {
 		meal.date = date;

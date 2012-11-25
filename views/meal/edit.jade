@@ -1,3 +1,4 @@
+!= console.dir(meal)
 .modal.hide.fade.in#createMeal(tabindex="-1",role="dialog")
   form(method='post',action='/meal/'+meal.id)
     input(type='hidden',name='_method',value='put')
@@ -6,7 +7,7 @@
       h3 Modify Meal
     .modal-body
       label(for='date') Date
-      input#date.datepicker(name='date',value=meal.date)
+      input#date.datepicker(name='date',value=meal.getDateStr())
       label(for='name') Meal
       input#meal(name='meal',value=meal.name)
     .modal-footer
