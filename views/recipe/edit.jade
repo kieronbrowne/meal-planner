@@ -2,8 +2,70 @@ extends ../layout
 
 block content
   h2 Edit #{recipe.name}
-  form(action='/recipe/#{recipe.id}',method='post')
+  form.form-horizontal.form-horizontal(action='/recipe/#{recipe.id}',method='post')
     input(type='hidden',name='_method',value='put')
-    label(for='name') Name
-    input#name(type='text',name='name',value='#{recipe.name}')
-    input(type='submit',value='Save')
+
+    .control-group
+      label.control-label(for='name') Name
+      .controls
+        input#name(type='text',name='name',value='#{recipe.name}')
+
+    .control-group
+      label.control-label(for='serves') Serves
+      .controls
+        input#servers(type='number',name='portions',value='#{recipe.portions}')
+    
+    .control-group
+      label.control-label(for='ingredient') Ingredients
+      .controls
+        input#ingredient(type='text',name='ingredient')
+        input.input-mini#quantity(type='number',name='quantity')
+        select.input-mini#unit(name='unit')
+          for unit in units
+            option(value='#{unit}')= unit
+        button#addIngredient.btn-small +
+      .controls
+        ul.nav-list.nav
+          for item in recipe.ingredients
+            li
+              button.delItem.btn-link.pull-right(data-del-item='#{item.id}') x
+              a(href='#')= item.getQuantityStr() + ' ' + item.name
+
+    .control-group
+      label.control-label(for='method') Method
+      .controls
+        textarea#method.input-xlarge(name='method', rows=16)= recipe.method
+
+    .form-actions
+      input.btn.btn-primary(type='submit',value='Save')
+      a.btn(href='/recipe/#{recipe.id}') Cancel
+      
+  script
+    $(document).ready(function() {
+      $('#addIngredient').click(function(ev) {
+        ev.preventDefault();
+        ev.stopPropagation();
+        var ingredient = $('#ingredient').val();
+        var quantity = $('#quantity').val();
+        var unit = $('#unit').val();
+        $.post('/recipe/#{recipe.id}/addIngredient', {ingredient: ingredient, quantity: quantity, unit: unit}, handleAddIngredient);
+      });
+      handleAddIngredient = function(a, b, c) {
+        console.log(a, b, c);
+      };
+
+      $('.delItem').click(function(ev) {
+        ev.preventDefault();
+        ev.stopPropagation();
+        var id = $(this).attr('data-del-item');
+        console.log("about to delete " + id);
+        $.post('/recipe/#{recipe.id}/ingredient/'+id,
+                {_method: 'delete'}, handleRemoveIngredient);
+      });
+
+      handleRemoveIngredient = function(data) {
+        if (data.ok) {
+          $('[data-del-item='+data.removedId+']').parent().remove();
+        }
+      };
+    });
