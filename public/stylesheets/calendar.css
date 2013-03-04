@@ -1,0 +1,29 @@
+.calendar {
+	display: table;
+	border-collapse: collapse;
+	width: 100%;
+}
+
+.week {
+	height: 150px;
+	display: table-row;
+}
+
+.day {
+	display: table-cell;
+	width: 14%;
+	border: 1px solid #aaa;
+	height: 100%;
+}
+
+.dayHeader {
+	background-color: #55f;
+	color: #eee;
+	padding: 4px;
+}
+
+.dayContent {
+	padding: 4px;
+	height: 100%;
+}
+

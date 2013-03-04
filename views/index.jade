@@ -1,0 +1,14 @@
+extends layout
+
+append style
+  link(rel="stylesheet", href="stylesheets/calendar.css")
+  
+append scripts
+  script(src='/scripts/require.js', data-main='calendar.js')
+  
+block content
+  .hero-unit
+    h1= title
+    p Welcome to #{title}
+
+  #app
