@@ -5,21 +5,20 @@ function(DayView, weekTemplate) {
 	var week = Backbone.View.extend({
 		template: _.template(weekTemplate),
 		
-		oneWeek: 7 * 24 * 60 * 60 * 1000,
-		
 		events: {
 			"click .back": "navBack",
 			"click .forward": "navForward"
 		},
-	
-		initialize: function() {
-			this.listenTo(this.collection, 'change', this.render);
-		},
 		
+		initialize: function() {
+			this.listenTo(this.collection, 'moved', this.render);
+		},
+	
 		render: function() {
 			var from = this.collection.first().getLongDate();
 			var to = this.collection.last().getLongDate();
 			this.$el.html(this.template({from: from, to: to}));
+			this.$(".week").html('');
 			var self = this;
 			this.collection.forEach(function(day) {
 				var dayView = new DayView({model: day});
@@ -29,16 +28,11 @@ function(DayView, weekTemplate) {
 		}, 
 		
 		navBack: function() {
-			var first = this.collection.first().get('date');
-			var prev = new Date(first.getTime() - this.oneWeek);
-			console.log(prev);
-			this.collection.resetPosition(prev);
+			this.collection.shiftWeek(-1);
 		},
 		
 		navForward: function() {
-			var first = this.collection.first().get('date');
-			var next = new Date(first.getTime() + this.oneWeek);
-			this.collection.resetPosition(next);
+			this.collection.shiftWeek(1);
 		}
 	});
 	

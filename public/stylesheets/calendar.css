@@ -19,6 +19,7 @@
 .dayHeader {
 	background-color: #55f;
 	color: #eee;
+	font-weight: bold;
 	padding: 4px;
 }
 
@@ -26,4 +27,3 @@
 	padding: 4px;
 	height: 100%;
 }
-

@@ -22,6 +22,13 @@ function(dayModel) {
 			return this;
 		},
 		
+		shiftWeek: function(n) {
+			this.forEach(function(day) {
+				day.shiftWeek(n);
+			});
+			this.trigger('moved');
+		},
+		
 		makeDate: function(year, month, day) {
 			var dt = new Date();
 			dt.setUTCDate(day);
