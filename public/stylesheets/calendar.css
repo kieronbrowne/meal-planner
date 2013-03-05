@@ -16,6 +16,10 @@
 	height: 100%;
 }
 
+.day.today {
+	background-color: #ffa;
+}
+
 .dayHeader {
 	background-color: #55f;
 	color: #eee;
