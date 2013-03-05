@@ -13,20 +13,14 @@ function(dayModel) {
 			var dayOfWeek = today.getDay();
 			var adjDays = (7 + dayOfWeek - this.startOfWeek) % 7;
 			today = this.makeDate(today.getFullYear(), today.getMonth(), today.getDate() - adjDays);
+			var models = [];
 			
 			for (i = 0; i < 7; i++) {
 				var day = new this.model(today);
-				this.add(day);
+				models.push(day);
 				today = this.makeDate(today.getUTCFullYear(), today.getUTCMonth(), today.getUTCDate() + 1);
 			}
-			return this;
-		},
-		
-		shiftWeek: function(n) {
-			this.forEach(function(day) {
-				day.shiftWeek(n);
-			});
-			this.trigger('moved');
+			this.reset(models);
 		},
 		
 		makeDate: function(year, month, day) {

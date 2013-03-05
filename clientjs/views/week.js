@@ -4,14 +4,16 @@ define(
 function(DayView, weekTemplate) {
 	var week = Backbone.View.extend({
 		template: _.template(weekTemplate),
-		
+
+		oneWeek: 7 * 24 * 60 * 60 * 1000, // in milliseconds
+	
 		events: {
 			"click .back": "navBack",
 			"click .forward": "navForward"
 		},
 		
 		initialize: function() {
-			this.listenTo(this.collection, 'moved', this.render);
+			this.listenTo(this.collection, 'reset', this.render);
 		},
 	
 		render: function() {
@@ -27,12 +29,18 @@ function(DayView, weekTemplate) {
 			return this;
 		}, 
 		
-		navBack: function() {
-			this.collection.shiftWeek(-1);
+		nav: function(n) {
+			var dt = this.collection.first().get('date');
+			dt = new Date(dt.getTime() + n * this.oneWeek);
+			this.collection.resetPosition(dt);
 		},
 		
 		navForward: function() {
-			this.collection.shiftWeek(1);
+			this.nav(1);
+		}, 
+		
+		navBack: function() {
+			this.nav(-1);
 		}
 	});
 	
