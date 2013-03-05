@@ -8,17 +8,19 @@ function(dayModel) {
 		model: dayModel,
 		
 		startOfWeek: 6, // Saturday
+		oneDay: 24 * 60 * 60 * 1000, // in milliseconds
 		
 		resetPosition: function(today) {
 			var dayOfWeek = today.getDay();
 			var adjDays = (7 + dayOfWeek - this.startOfWeek) % 7;
-			today = this.makeDate(today.getFullYear(), today.getMonth(), today.getDate() - adjDays);
+			today = this.makeDate(today.getFullYear(), today.getMonth(), today.getDate());
+			today = new Date(today.getTime() - this.oneDay * adjDays);
 			var models = [];
 			
 			for (i = 0; i < 7; i++) {
 				var day = new this.model(today);
 				models.push(day);
-				today = this.makeDate(today.getUTCFullYear(), today.getUTCMonth(), today.getUTCDate() + 1);
+				today = new Date(today.getTime() + this.oneDay);
 			}
 			this.reset(models);
 		},
