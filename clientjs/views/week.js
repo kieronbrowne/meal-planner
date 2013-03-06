@@ -57,8 +57,6 @@ function(DayView, weekTemplate) {
 		
 		navToDate: function(dt) {
 			this.collection.resetPosition(dt);
-			var coll = this.collection;
-			
 			this.mealsCollection.fetch({
 				data: {start: this.collection.getFromDate(), end: this.collection.getToDate()}
 			});

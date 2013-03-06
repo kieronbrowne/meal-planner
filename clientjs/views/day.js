@@ -1,7 +1,7 @@
 define(
-['text!templates/day.html', 'views/meal'],
+['text!templates/day.html', 'views/meal', 'views/meal-edit', 'models/meal'],
 
-function(dayTemplate, MealView) {
+function(dayTemplate, MealView, MealEditView, MealModel) {
 	var view = Backbone.View.extend({
 	
 		className: 'day',
@@ -9,11 +9,14 @@ function(dayTemplate, MealView) {
 		template: _.template(dayTemplate),
 		
 		events: {
-			"click .dayHeader": "handleDayHdrClick"
+			"click .addMeal": "handleDayHdrClick"
 		},
 		
 		initialize: function() {
 			this.listenTo(this.model.mealsCollection, 'reset', this.render);
+			this.listenTo(this.model.mealsCollection, 'add', this.render);
+			this.listenTo(this.model.mealsCollection, 'change', this.render);
+			this.listenTo(this.model.mealsCollection, 'destroy', this.render);
 		},
 		
 		render: function() {
@@ -35,7 +38,13 @@ function(dayTemplate, MealView) {
 		}, 
 		
 		handleDayHdrClick: function() {
-			console.log("Clicked on: " + this.model.getLongDate());
+			var meal = new MealModel();
+			meal.set('date', this.model.get('date').getTime());
+			meal.collection = this.model.mealsCollection;
+			var editView = new MealEditView({model: meal});
+			var self = this;
+			this.$('.mealEdit').html(editView.render().el);
+			editView.show();
 		}
 	});
 	

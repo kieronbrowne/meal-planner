@@ -1,23 +1,35 @@
 define(
-[],
+['views/meal-edit', 'text!templates/meal.html'],
 
-function() {
+function(MealEditView, template) {
 	var view = Backbone.View.extend({
 		tagName: 'li',
 		className: 'meal',
+		template: _.template(template),
 		
 		events: {
-			"click": "handleMealClick"
+			"click": "handleMealClick",
+			"click .remove": "removeMeal"
 		},
 		
 		render: function() {
-			this.$el.html(this.model.get('name'));
+			this.$el.html(this.template(this.model.attributes));
 			return this;
 		},
 		
 		handleMealClick: function() {
-			console.log('Clicked on ' + this.model.get('name') + ' (' + this.model.url() + ")");
+			var mealEditView = new MealEditView({model: this.model});
+			$('.mealEdit').first().html(mealEditView.render().el);
+			mealEditView.show();
+		},
+		
+		removeMeal: function() {
+			if (confirm('Really delete?')) {
+				this.model.destroy();
+			} 
+			return false;
 		}
+		
 	});
 	
 	return view;

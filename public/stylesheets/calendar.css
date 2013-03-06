@@ -44,4 +44,13 @@ ul.meals li.meal {
 	margin: 4px;
 	padding: 4px 8px 4px;
 	font-size: 90%;
+	cursor: pointer;
+}
+
+li.meal a.remove {
+	display: none;
+}
+
+li.meal:hover a.remove {
+	display: inline;
 }
