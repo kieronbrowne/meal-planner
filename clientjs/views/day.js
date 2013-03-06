@@ -29,7 +29,6 @@ function(dayTemplate, MealView) {
 			listEl.html('');
 			this.model.getMeals().forEach(function(meal) {
 				var mealView = new MealView({model: meal});
-				console.log(mealView);
 				listEl.append(mealView.render().el);
 			});
 			return this;
