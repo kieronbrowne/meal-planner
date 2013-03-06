@@ -19,6 +19,7 @@ function(dayModel) {
 			
 			for (i = 0; i < 7; i++) {
 				var day = new this.model(today);
+				day.mealsCollection = this.mealsCollection;
 				models.push(day);
 				today = new Date(today.getTime() + this.oneDay);
 			}
@@ -33,7 +34,16 @@ function(dayModel) {
 			dt.setUTCHours(0);
 			dt.setUTCMinutes(0);
 			dt.setUTCSeconds(0);
+			dt.setUTCMilliseconds(0);
 			return dt;
+		},
+		
+		getFromDate: function() {
+			return this.first().get('date').getTime();
+		},
+		
+		getToDate: function() {
+			return this.last().get('date').getTime();
 		}
 		
 	});

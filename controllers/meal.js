@@ -18,6 +18,14 @@ exports.calendar = function(req, res) {
 	});
 };
 
+exports.find = function(req, res) {
+	var start = new Date(parseInt(req.query.start));
+	var end = new Date(parseInt(req.query.end));
+	Meal.find({date: {$gte: start, $lte: end}}, function(err, resp) {
+		res.send(resp);
+	});	
+};
+
 exports.editNew = function(req, res) {
 	var date = req.query.day;
 	var meal = new Meal({date: date});

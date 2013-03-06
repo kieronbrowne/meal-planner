@@ -14,6 +14,10 @@ function() {
 		
 		initialize: function(date) {
 			this.set({date: date});
+		},
+		
+		getMeals: function() {
+			return this.mealsCollection.where({date: this.get('date').getTime()});
 		}
 		
 	});

@@ -31,3 +31,17 @@
 	padding: 4px;
 	height: 100%;
 }
+
+ul.meals {
+	list-style: none;
+	margin: 0;
+}
+
+ul.meals li.meal {
+	background-color: #ddf;
+	border-radius: 6px;
+	color: #000;
+	margin: 4px;
+	padding: 4px 8px 4px;
+	font-size: 90%;
+}

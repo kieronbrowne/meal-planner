@@ -16,6 +16,7 @@ function(DayView, weekTemplate) {
 		
 		initialize: function() {
 			this.listenTo(this.collection, 'reset', this.render);
+			this.mealsCollection = this.options.mealsCollection;
 		},
 	
 		render: function() {
@@ -25,7 +26,7 @@ function(DayView, weekTemplate) {
 			this.$(".week").html('');
 			var self = this;
 			this.collection.forEach(function(day) {
-				var dayView = new DayView({model: day});
+				var dayView = new DayView({model: day, mealsCollection: this.mealsCollection});
 				self.$(".week").append(dayView.render().el);
 			});
 			this.$('.goToDay').datepicker({showOn: 'button', buttonText: 'Go to...', showButtonPanel: true, 
@@ -36,7 +37,7 @@ function(DayView, weekTemplate) {
 		nav: function(n) {
 			var dt = this.collection.first().get('date');
 			dt = new Date(dt.getTime() + n * this.oneWeek);
-			this.collection.resetPosition(dt);
+			this.navToDate(dt);
 		},
 		
 		navForward: function() {
@@ -51,7 +52,16 @@ function(DayView, weekTemplate) {
 			var dt = this.$('.goToDay').val();
 			this.selectedDate = dt;
 			dt = new Date(dt);
+			this.navToDate(dt);
+		},
+		
+		navToDate: function(dt) {
 			this.collection.resetPosition(dt);
+			var coll = this.collection;
+			
+			this.mealsCollection.fetch({
+				data: {start: this.collection.getFromDate(), end: this.collection.getToDate()}
+			});
 		}
 	});
 	
