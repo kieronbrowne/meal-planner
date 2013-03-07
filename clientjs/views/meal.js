@@ -19,7 +19,6 @@ function(MealEditView, template) {
 		
 		handleMealClick: function() {
 			var mealEditView = new MealEditView({model: this.model});
-			$('.mealEdit').first().html(mealEditView.render().el);
 			mealEditView.show();
 		},
 		

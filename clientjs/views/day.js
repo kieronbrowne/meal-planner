@@ -42,8 +42,6 @@ function(dayTemplate, MealView, MealEditView, MealModel) {
 			meal.set('date', this.model.get('date').getTime());
 			meal.collection = this.model.mealsCollection;
 			var editView = new MealEditView({model: meal});
-			var self = this;
-			this.$('.mealEdit').html(editView.render().el);
 			editView.show();
 		}
 	});

@@ -4,7 +4,7 @@ define(
 function(mealEditTemplate) {
 	var view = Backbone.View.extend({
 	
-		className: 'mealEditForm',
+		className: 'mealEdit modal hide',
 		
 		template: _.template(mealEditTemplate),
 		
@@ -33,12 +33,15 @@ function(mealEditTemplate) {
 				});
 			}
 			this.trigger('saved');
+			this.remove();
 			return false;
 		},
 		
 		show: function() {
-			this.$el.parent().modal();
-			console.log(this.$('input:first'));
+			this.render();
+			$('#modalPlaceholder').html(this.el);
+			this.$el.modal();
+			this.$('input:first').focus();
 		}
 	});
 	
