@@ -23,6 +23,7 @@ function(dayTemplate, MealView, MealEditView, MealModel) {
 			var dt = this.model.get('date');
 			var today = new Date();
 			this.$el.html(this.template({day: this.model.getShortDate()}));
+			this.$(".dayContent").droppable();
 			if (dt.getUTCDate()         == today.getDate() &&
 					dt.getUTCMonth()    == today.getMonth() &&
 					dt.getUTCFullYear() == today.getFullYear()) {

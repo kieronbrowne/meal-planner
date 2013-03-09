@@ -8,12 +8,13 @@ function(MealEditView, template) {
 		template: _.template(template),
 		
 		events: {
-			"click": "handleMealClick",
+			"dblclick": "handleMealClick",
 			"click .remove": "removeMeal"
 		},
 		
 		render: function() {
 			this.$el.html(this.template(this.model.attributes));
+			this.$el.draggable();
 			return this;
 		},
 		
