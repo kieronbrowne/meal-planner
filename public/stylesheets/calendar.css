@@ -54,3 +54,7 @@ li.meal a.remove {
 li.meal:hover a.remove {
 	display: inline;
 }
+
+#recipeApp {
+	margin-top: 32px;
+}

@@ -16,7 +16,7 @@ function(DayView, weekTemplate) {
 		
 		initialize: function() {
 			this.listenTo(this.collection, 'reset', this.render);
-			this.mealsCollection = this.options.mealsCollection;
+			this.mealsCollection = this.collection.mealsCollection;
 		},
 	
 		render: function() {

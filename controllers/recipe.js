@@ -2,8 +2,10 @@ var Recipe = require('../models/recipe');
 
 exports.list = function(req, res){
 	var recipes = Recipe.find({}, function(err, recipes) {
-		if (err) return console.log(err);
-		res.render('recipe/list', {recipes: recipes, title: 'Recipes'});
+		if (err) {
+			return console.log(err);
+		}
+		res.send(recipes);
 	});
 };
 

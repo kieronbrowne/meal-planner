@@ -1,24 +1,31 @@
 define(
-['views/week', 'collections/week', 'collections/meals'],
+['views/week', 'views/recipe-list', 'collections/week', 'collections/meals', 'collections/recipes'],
 
-function(WeekView, WeekCollection, MealsCollection) {
+function(WeekView, RecipeListView, WeekCollection, MealsCollection, RecipesCollection) {
 
 	var App = function() {
-		var weekColl = new WeekCollection();
-		var mealsColl = new MealsCollection();
-		weekColl.mealsCollection = mealsColl;
+		this.collections.week = new WeekCollection();
+		this.collections.meals = new MealsCollection();
+		this.collections.recipes = new RecipesCollection();
 		
-		var weekView = new WeekView({collection: weekColl, mealsCollection: mealsColl});
+		this.collections.week.mealsCollection = this.collections.meals;
 		
-		weekColl.resetPosition(new Date());
-		$('#app').html(weekView.el);
+		this.views.week = new WeekView({collection: this.collections.week});
+		this.views.recipeList = new RecipeListView({collection: this.collections.recipes});
 		
-		mealsColl.fetch({
-			data: {start: weekColl.getFromDate(), end: weekColl.getToDate()}
+		this.collections.week.resetPosition(new Date());
+		$('#calApp').html(this.views.week.el);
+		
+		this.collections.meals.fetch({
+			data: {start: this.collections.week.getFromDate(), end: this.collections.week.getToDate()}
 		});
+		
+		this.collections.recipes.fetch();
+		$('#recipeApp').html(this.views.recipeList.el);
 	};
 	
 	App.prototype = {
+		collections: {},
 		views: {}
 	};
 	

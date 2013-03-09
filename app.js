@@ -34,7 +34,7 @@ app.configure('development', function(){
 
 app.get('/', controllers.index);
 
-app.get('/recipes', recipe.list);
+app.get('/recipe', recipe.list);
 app.get('/recipe/:id', recipe.show);
 app.get('/recipe/:id/edit', recipe.edit);
 app.post('/recipe/:id/addIngredient', recipe.addIngredient);

@@ -4,7 +4,7 @@ define(
 function(mealEditTemplate) {
 	var view = Backbone.View.extend({
 	
-		className: 'mealEdit modal hide',
+		className: 'mealEdit modal',
 		
 		template: _.template(mealEditTemplate),
 		
