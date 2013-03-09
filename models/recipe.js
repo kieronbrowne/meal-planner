@@ -3,8 +3,8 @@ var mongoose = require('mongoose')
 
 var ingredientSchema = new Schema({
 	name: String,
-    	quantity: Number,
-    	unit: String
+	quantity: Number,
+	unit: String
 });
 
 ingredientSchema.methods.getQuantityStr = function() {
@@ -15,9 +15,9 @@ ingredientSchema.methods.getQuantityStr = function() {
 
 var recipeSchema = new Schema({
 	name: String,
-    	portions: Number,
-    	ingredients: [ingredientSchema],
-    	method: String
+	portions: Number,
+	ingredients: [ingredientSchema],
+	method: String
 });
 
 recipeSchema.statics.getUnits = function() {
