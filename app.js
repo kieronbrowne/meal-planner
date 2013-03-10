@@ -25,6 +25,7 @@ app.configure(function(){
   app.use(express.session());
   app.use(app.router);
   app.use(express.static(path.join(__dirname, 'public')));
+  app.use(express.static(path.join(__dirname, 'clientjs')));
 });
 
 app.configure('development', function(){
@@ -33,13 +34,14 @@ app.configure('development', function(){
 
 app.get('/', controllers.index);
 
-app.get('/recipes', recipe.list);
+app.get('/recipe', recipe.list);
 app.get('/recipe/:id', recipe.show);
 app.get('/recipe/:id/edit', recipe.edit);
 app.post('/recipe/:id/addIngredient', recipe.addIngredient);
 app.delete('/recipe/:id/ingredient/:ingId', recipe.removeIngredient);
 app.put('/recipe/:id', recipe.update);
 
+app.get('/meal', meal.find);
 app.get('/meal/calendar', meal.calendar);
 app.get('/meal/new', meal.editNew);
 app.get('/meal/:id', meal.edit);

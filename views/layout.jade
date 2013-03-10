@@ -2,14 +2,15 @@ doctype 5
 html(lang='en')
   head
     title= title
-    link(rel='stylesheet', href='/bootstrap/css/bootstrap.min.css')
-    link(rel='stylesheet', href='/stylesheets/style.css')
-    link(rel='stylesheet', href='/jquery-ui/css/smoothness/jquery-ui-1.9.1.custom.min.css')
-    style
-      body { padding-top: 60px; }
+    block style
+      link(rel='stylesheet', href='/bootstrap/css/bootstrap.min.css')
+      link(rel='stylesheet', href='/stylesheets/style.css')
+      link(rel='stylesheet', href='/jquery-ui/css/smoothness/jquery-ui-1.9.1.custom.min.css')
+      style
+        body { padding-top: 60px; }
     block scripts
       script(src='/jquery-ui/js/jquery-1.8.2.js')
-      script(src='/jquery-ui/js/jquery-ui-1.9.1.custom.min.js')
+      script(src='/jquery-ui/js/jquery-ui-1.9.1.custom.js')
       script(src='/bootstrap/js/bootstrap.min.js')
       script(src='/scripts/local.js')
   body
@@ -37,3 +38,5 @@ html(lang='en')
                       a(href="#") Item 1.1
     .container-fluid
       block content
+    
+    #modalPlaceholder

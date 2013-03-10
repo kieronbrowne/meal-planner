@@ -1,23 +1,26 @@
 var mongoose = require('mongoose')
- , Schema = mongoose.Schema;
+ , Schema = mongoose.Schema
+ , Tag = require('./tag');
 
 var ingredientSchema = new Schema({
 	name: String,
-    	quantity: Number,
-    	unit: String
+	quantity: Number,
+	unit: String
 });
 
 ingredientSchema.methods.getQuantityStr = function() {
-	if (this.quantity)
+	if (this.quantity) {
 		return '' + this.quantity  + this.unit;
+	}
 	return '';
 };
 
 var recipeSchema = new Schema({
 	name: String,
-    	portions: Number,
-    	ingredients: [ingredientSchema],
-    	method: String
+	portions: Number,
+	ingredients: [ingredientSchema],
+	method: String,
+	tags: [{type: Schema.Types.ObjectId, ref: 'Tag'}]
 });
 
 recipeSchema.statics.getUnits = function() {
@@ -36,8 +39,7 @@ recipeSchema.methods.addIngredient = function(name, quantity, unit) {
 };
 
 recipeSchema.methods.removeIngredient = function(index) {
-	for
-	this.ingredients = this.ingredients.splice(index, 1);
+	//this.ingredients = this.ingredients.splice(index, 1);
 };
 
 recipeSchema.methods.setName = function(name) {

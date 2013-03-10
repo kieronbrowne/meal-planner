@@ -3,7 +3,7 @@ var mongoose = require('mongoose')
 
 var mealSchema = new Schema({
 	name: String,
-    	date: Date
+    date: Date
 });
 
 mealSchema.methods.getDateStr = function() {
