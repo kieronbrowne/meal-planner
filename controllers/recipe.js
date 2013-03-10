@@ -1,7 +1,9 @@
 var Recipe = require('../models/recipe');
 
 exports.list = function(req, res){
-	var recipes = Recipe.find({}, function(err, recipes) {
+	Recipe.find({})
+	.populate('tags')
+	.exec(function(err, recipes) {
 		if (err) {
 			return console.log(err);
 		}

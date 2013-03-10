@@ -5,4 +5,4 @@ var tagSchema = new Schema({
 	name: String
 });
 
-var model = module.exports = mongoose.model('Tag', mealSchema);
+var model = module.exports = mongoose.model('Tag', tagSchema);
