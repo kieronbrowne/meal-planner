@@ -58,3 +58,12 @@ li.meal:hover a.remove {
 #recipeApp {
 	margin-top: 32px;
 }
+
+.recipes {
+	width: 80%;
+}
+
+.tags {
+	width: 15%;
+	float: right;
+}

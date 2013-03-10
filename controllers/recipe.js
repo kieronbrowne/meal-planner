@@ -1,7 +1,13 @@
 var Recipe = require('../models/recipe');
 
 exports.list = function(req, res){
-	Recipe.find({})
+	var tags = req.query.tags;
+	var query = {};
+	if (typeof(tags) !== 'undefined' && tags.length > 0) {
+		tags = tags.split(",");
+		query = {tags: {"$all": tags}};
+	}
+	Recipe.find(query)
 	.populate('tags')
 	.exec(function(err, recipes) {
 		if (err) {

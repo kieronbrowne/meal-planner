@@ -7,6 +7,7 @@ var express = require('express')
   , controllers = require('./controllers')
   , recipe = require('./controllers/recipe')
   , meal = require('./controllers/meal')
+  , tag = require('./controllers/tag')
   , http = require('http')
   , mongoose = require('mongoose')
   , path = require('path');
@@ -48,6 +49,11 @@ app.get('/meal/:id', meal.edit);
 app.post('/meal', meal.create);
 app.put('/meal/:id', meal.update);
 app.delete('/meal/:id', meal.delete);
+
+app.get('/tag', tag.find);
+app.post('/tag', tag.create);
+app.put('/tag/:id', tag.update);
+app.delete('/tag/:id', tag.delete);
 
 mongoose.connect('localhost', 'mealPlanner');
 mongoose.connection.on('error', function(err) {
