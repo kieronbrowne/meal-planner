@@ -6,6 +6,7 @@ function(MealEditView, template) {
 		tagName: 'li',
 		className: 'meal',
 		template: _.template(template),
+		id: function() {return this.model.id;},
 		
 		events: {
 			"dblclick": "handleMealClick",

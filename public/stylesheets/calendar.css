@@ -32,6 +32,10 @@
 	height: 100%;
 }
 
+.day.mealDropHover {
+	background-color: #ddd;
+}
+
 ul.meals {
 	list-style: none;
 	margin: 0;
