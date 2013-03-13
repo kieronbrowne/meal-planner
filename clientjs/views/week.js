@@ -4,7 +4,7 @@ define(
 function(DayView, weekTemplate) {
 	var week = Backbone.View.extend({
 		template: _.template(weekTemplate),
-		selectedDate: new Date().toLocaleFormat("%D"),
+		selectedDate: $.datepicker.formatDate('yy-mm-dd', new Date()),
 
 		oneWeek: 7 * 24 * 60 * 60 * 1000, // in milliseconds
 	
