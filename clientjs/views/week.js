@@ -24,11 +24,10 @@ function(DayView, weekTemplate) {
 			var to = this.collection.last().getLongDate();
 			this.$el.html(this.template({from: from, to: to, selectedDate: this.selectedDate}));
 			this.$(".week").html('');
-			var self = this;
 			this.collection.forEach(function(day) {
 				var dayView = new DayView({model: day, mealsCollection: this.mealsCollection});
-				self.$(".week").append(dayView.render().el);
-			});
+				this.$(".week").append(dayView.render().el);
+			}, this);
 			this.$('.goToDay').datepicker({showOn: 'button', buttonText: 'Go to...', showButtonPanel: true, 
 			selectOtherMonths: true, showOtherMonths: true});
 			return this;
