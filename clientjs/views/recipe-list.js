@@ -1,5 +1,5 @@
 define(
-['text!templates/recipe-list.html', 'views/recipe-row'],
+    ['text!templates/recipe-list.html', 'views/recipe-row', 'views/tags'],
 
 function(template, rowView, tagsView) {
 	var view = Backbone.View.extend({
@@ -7,7 +7,7 @@ function(template, rowView, tagsView) {
 		template: _.template(template),
 		
 		events: {
-			
+
 		},
 		
 		initialize: function() {
