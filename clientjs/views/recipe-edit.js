@@ -19,11 +19,12 @@ define(
 		},
 	    
 	    handleSubmit: function() {
-		return false; //TODO implement method!
-		var mealName = this.$('[name=name]').val();
+		var recipeName = this.$('[name=name]').val();
+		var tags = this.$('[name=tags]').val();
+		
 		var self = this;
-		if (mealName !== "") {
-		    this.model.set({name: mealName});
+		if (recipeName !== "") {
+		    this.model.set({name: recipeName, tags: tags});
 		    if (this.model.isNew()) {
 			this.model.collection.add(this.model);
 		    }
@@ -34,6 +35,7 @@ define(
 		    });
 		}
 		this.trigger('saved');
+		window.calApp.collections.tags.fetch();
 		this.remove();
 		return false;
 	    },
