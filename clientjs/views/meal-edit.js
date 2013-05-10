@@ -21,19 +21,18 @@ define(
 	    handleSubmit: function() {
 		var mealName = this.$('[name=name]').val();
 		var self = this;
+		var isNew = this.model.isNew();
 		if (mealName !== "") {
 		    this.model.set({name: mealName});
-		    if (this.model.isNew()) {
-			this.model.collection.add(this.model);
-		    }
-		    this.model.save({
-			success: function() {
+		    this.model.save({}, {
+			success: function(model) {
+			    if (isNew) {
+				model.collection.add(model);
+			    }
 			    self.$('.close').click();
 			}
 		    });
 		}
-		this.trigger('saved');
-		this.remove();
 		return false;
 	    },
 	    

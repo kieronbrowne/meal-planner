@@ -32,12 +32,11 @@ define(
 				model.collection.add(model);
 			    }
 			    self.$('.close').click();
+			    window.calApp.collections.tags.fetch();
+		//	    self.remove();
 			}
 		    });
 		}
-		this.trigger('saved');
-		window.calApp.collections.tags.fetch();
-		this.remove();
 		return false;
 	    },
 	    
