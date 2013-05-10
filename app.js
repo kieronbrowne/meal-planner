@@ -41,6 +41,7 @@ app.get('/recipe/:id/edit', recipe.edit);
 app.post('/recipe/:id/addIngredient', recipe.addIngredient);
 app.delete('/recipe/:id/ingredient/:ingId', recipe.removeIngredient);
 app.put('/recipe/:id', recipe.update);
+app.post('/recipe', recipe.create);
 
 app.get('/meal', meal.find);
 app.get('/meal/calendar', meal.calendar);

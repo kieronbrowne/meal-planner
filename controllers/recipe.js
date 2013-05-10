@@ -10,6 +10,7 @@ exports.list = function(req, res){
 	query = {tags: {"$all": tags}};
     }
     Recipe.find(query)
+	.sort({name: 1})
 	.populate('tags')
 	.exec(function(err, recipes) {
 	    if (err) {
@@ -17,6 +18,18 @@ exports.list = function(req, res){
 	    }
 	    res.send(recipes);
 	});
+};
+
+exports.create = function(req, res) {
+    var name = req.body.name;
+    var tags = req.body.tags;
+    var tagList = _.map(tags.split(','), function(tag) {return tag.trim().toLowerCase();});
+    Tag.findOrCreate(tagList, function(tagObjs) {
+	var recipe = new Recipe({name: name, tags: tagObjs});
+	recipe.save(function(err, recipe) {
+	    res.send(recipe);
+	});
+    });
 };
 
 exports.update = function(req, res) {

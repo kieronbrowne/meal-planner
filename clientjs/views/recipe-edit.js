@@ -16,20 +16,21 @@ define(
 		this.model.set('action', this.model.isNew() ? 'Create' : 'Save');
 		this.$el.html(this.template(this.model.attributes));
 		return this;
-		},
+	    },
 	    
 	    handleSubmit: function() {
 		var recipeName = this.$('[name=name]').val();
 		var tags = this.$('[name=tags]').val();
 		
 		var self = this;
+		var isNew = this.model.isNew();
 		if (recipeName !== "") {
 		    this.model.set({name: recipeName, tags: tags});
-		    if (this.model.isNew()) {
-			this.model.collection.add(this.model);
-		    }
-		    this.model.save({
-			success: function() {
+		    this.model.save({}, {
+			success: function(model) {
+			    if (isNew) {
+				model.collection.add(model);
+			    }
 			    self.$('.close').click();
 			}
 		    });

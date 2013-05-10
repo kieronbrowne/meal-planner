@@ -16,8 +16,8 @@ define(
 	    },
 	    
 	    render: function() {
-		this.el.id = this.model.id;
 		this.$el.html(this.template(this.model.attributes));
+		this.$(".recipe").draggable({revert: true});
 		return this;
 	    },
 	    
