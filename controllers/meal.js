@@ -36,6 +36,7 @@ exports.create = function(req, res) {
     var date = new Date(parseInt(req.body.date));
     var name = req.body.name;
     var meal = new Meal();
+    var recipeId = req.body.recipe;
     meal.date = date;
     meal.name = name;
     meal.recipe = recipeId;
