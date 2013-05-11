@@ -8,7 +8,8 @@ define(
 	    template: _.template(template),
 	    
 	    events: {
-		"dblclick .recipe-name": "editRecipe"
+		"dblclick .recipe-name": "editRecipe",
+		"click .recipe-del": "removeRecipe"
 	    },
 
 	    initialize: function() {
@@ -24,6 +25,15 @@ define(
 	    editRecipe: function() {
 		var recipeEditView = new RecipeEditView({model: this.model});
 		recipeEditView.show();
+	    },
+
+	    removeRecipe: function() {
+		if (confirm("Really delete '" + this.model.attributes.name + "'?")) {
+		    this.model.destroy({success: function() {
+			window.calApp.collections.tags.fetch();
+		    }});
+		    this.remove();
+		}
 	    }
 	    
 	});

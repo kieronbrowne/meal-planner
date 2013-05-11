@@ -50,6 +50,18 @@ exports.update = function(req, res) {
     });
 };
 
+exports.delete = function(req, res) {
+    var id = req.params.id;
+    Recipe.findById(id, function(err, recipe) {
+	var tags = recipe.tags;
+	recipe.remove(function(err) {
+	    Tag.removeIfUnused(tags, function() {
+		res.send({});
+	    });		
+	});
+    });
+};
+
 exports.addIngredient = function(req, res) {
     var ingredient = req.body.ingredient;
     var quantity = req.body.quantity;

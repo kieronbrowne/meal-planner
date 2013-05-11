@@ -21,19 +21,18 @@ define(
 	    handleSubmit: function() {
 		var recipeName = this.$('[name=name]').val();
 		var tags = this.$('[name=tags]').val();
-		
 		var self = this;
 		var isNew = this.model.isNew();
 		if (recipeName !== "") {
 		    this.model.set({name: recipeName, tags: tags});
 		    this.model.save({}, {
 			success: function(model) {
+			    model.attributes.tags = tags;
 			    if (isNew) {
 				model.collection.add(model);
 			    }
 			    self.$('.close').click();
 			    window.calApp.collections.tags.fetch();
-		//	    self.remove();
 			}
 		    });
 		}
