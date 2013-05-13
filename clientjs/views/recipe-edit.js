@@ -24,10 +24,10 @@ define(
 		var self = this;
 		var isNew = this.model.isNew();
 		if (recipeName !== "") {
-		    this.model.set({name: recipeName, tags: tags});
+		    this.model.set({name: recipeName, tagStr: tags});
 		    this.model.save({}, {
 			success: function(model) {
-			    model.attributes.tags = tags;
+			    model.attributes.tagStr = tags;
 			    if (isNew) {
 				model.collection.add(model);
 			    }

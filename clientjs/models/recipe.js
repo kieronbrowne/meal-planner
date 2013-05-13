@@ -6,7 +6,7 @@ define(
 	    idAttribute: '_id',
 
 	    parse: function(response, options) {
-		response.tags = _.pluck(response.tags, 'name').join(', ');
+		response.tagStr = _.pluck(response.tags, 'name').join(', ');
 		return response;
 	    }
 	});

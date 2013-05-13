@@ -37,7 +37,7 @@ define(
 	    },
 
 	    addRecipe: function() {
-		var recipe = new RecipeModel({tags: ""});
+		var recipe = new RecipeModel({tagStr: ""});
 		recipe.collection = this.collection;
 		var editRecipe = new recipeView({model: recipe, collection: this.collection});
 		editRecipe.show();

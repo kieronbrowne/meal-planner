@@ -20,13 +20,16 @@ exports.list = function(req, res){
 	});
 };
 
-exports.create = function(req, res) {
+exports.create = function(req, res, next) {
     var name = req.body.name;
-    var tags = req.body.tags;
+    var tags = req.body.tagStr;
     var tagList = _.map(tags.split(','), function(tag) {return tag.trim().toLowerCase();});
     Tag.findOrCreate(tagList, function(tagObjs) {
 	var recipe = new Recipe({name: name, tags: tagObjs});
 	recipe.save(function(err, recipe) {
+	    if (err) {
+		return next(err);
+	    }
 	    res.send(recipe);
 	});
     });
@@ -35,8 +38,11 @@ exports.create = function(req, res) {
 exports.update = function(req, res) {
     var name = req.body.name;
     var id = req.params.id;
-    var tags = req.body.tags;
-    var tagList = _.map(tags.split(','), function(tag) {return tag.trim().toLowerCase();});
+    var tags = req.body.tagStr.trim();
+    var tagList = [];
+    if (tags != "") {
+	tagList = _.map(tags.split(','), function(tag) {return tag.trim().toLowerCase();});
+    }
     Tag.findOrCreate(tagList, function(tagObjs) {
 	Recipe.findOne({_id: id}, function(err, recipe) {
 	    recipe.name = name;

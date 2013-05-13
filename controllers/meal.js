@@ -32,11 +32,11 @@ exports.editNew = function(req, res) {
     res.render('meal/createNew', {meal: meal, title: 'Add meal'});
 };
 
-exports.create = function(req, res) {
+exports.create = function(req, res, next) {
     var date = new Date(parseInt(req.body.date));
     var name = req.body.name;
     var meal = new Meal();
-    var recipeId = req.body.recipe;
+    var recipeId = req.body.recipe._id;
     meal.date = date;
     meal.name = name;
     meal.recipe = recipeId;
@@ -44,6 +44,8 @@ exports.create = function(req, res) {
 	if (!err) {
 	    return res.send(meal);
 	}
+	console.dir(err);
+	next(err);
     });
 };
 
@@ -65,6 +67,7 @@ exports.update = function(req, res) {
 	    if (!err) {
 		return res.send(meal);
 	    }
+	    console.dir(err);
 	});
     });
 };

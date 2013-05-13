@@ -61,8 +61,14 @@ define(
 		    window.calApp.collections.meals.add(mealModel);
 		}
 		mealModel.set({date: date.getTime()}, {silent: true});
-		mealModel.trigger('change');
-		mealModel.save();
+		mealModel.save({}, {
+		    success: function() {
+			mealModel.trigger('change');
+		    },
+		    error: function(model, xhr, options) {
+			console.log(xhr);
+		    }
+		});
 	    }
 	});
 	

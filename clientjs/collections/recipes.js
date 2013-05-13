@@ -1,12 +1,16 @@
 define(
-['models/recipe'],
+    ['models/recipe'],
 
-function(RecipeModel) {
+    function(RecipeModel) {
 	var Collection = Backbone.Collection.extend({
-		model: RecipeModel,
-		
-		url: 'recipe'
+	    model: RecipeModel,
+	    
+	    url: 'recipe',
+
+	    comparator: function(a, b) {
+		return a.attributes.name.localeCompare(b.attributes.name);
+	    }
 	});
 	
 	return Collection;
-});
+    });
