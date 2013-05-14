@@ -4,40 +4,42 @@
  */
 
 var express = require('express')
-  , controllers = require('./controllers')
-  , recipe = require('./controllers/recipe')
-  , meal = require('./controllers/meal')
-  , tag = require('./controllers/tag')
-  , http = require('http')
-  , mongoose = require('mongoose')
-  , path = require('path');
+, controllers = require('./controllers')
+, recipe = require('./controllers/recipe')
+, meal = require('./controllers/meal')
+, tag = require('./controllers/tag')
+, http = require('http')
+, mongoose = require('mongoose')
+, path = require('path')
+, auth = require('./controllers/auth')
 
 var app = express();
 
 app.configure(function(){
-  app.set('port', process.env.PORT || 3000);
-  app.set('views', __dirname + '/views');
-  app.set('view engine', 'jade');
-  app.use(express.favicon());
-  app.use(express.logger('dev'));
-  app.use(express.bodyParser());
-  app.use(express.methodOverride());
-  app.use(express.cookieParser('your secret here'));
-  app.use(express.session());
-  app.use(app.router);
-  app.use(express.static(path.join(__dirname, 'public')));
-  app.use(express.static(path.join(__dirname, 'clientjs')));
+    app.set('port', process.env.PORT || 3000);
+    app.set('views', __dirname + '/views');
+    app.set('view engine', 'jade');
+    app.use(express.favicon());
+    app.use(express.logger('dev'));
+    app.use(express.bodyParser());
+    app.use(express.methodOverride());
+    app.use(express.cookieParser('your secret here'));
+    app.use(express.session());
+    app.use(express.static(path.join(__dirname, 'public')));
+    app.use(auth.checkAuth);
+    app.use(express.static(path.join(__dirname, 'clientjs')));
+    app.use(app.router);
 });
 
 app.configure('development', function(){
-  app.use(express.errorHandler());
+    app.use(express.errorHandler());
 });
 
 app.get('/', controllers.index);
 
+app.post('/auth', auth.login);
+
 app.get('/recipe', recipe.list);
-app.get('/recipe/:id', recipe.show);
-app.get('/recipe/:id/edit', recipe.edit);
 app.post('/recipe/:id/addIngredient', recipe.addIngredient);
 app.delete('/recipe/:id/ingredient/:ingId', recipe.removeIngredient);
 app.put('/recipe/:id', recipe.update);
@@ -59,12 +61,12 @@ app.delete('/tag/:id', tag.delete);
 
 mongoose.connect('localhost', 'mealPlanner');
 mongoose.connection.on('error', function(err) {
-	console.log("MongoDB error");
-	console.dir(err);
+    console.log("MongoDB error");
+    console.dir(err);
 });
 mongoose.connection.once('open', function() {
-	console.log('Connected to mongodb');
-	http.createServer(app).listen(app.get('port'), function(){
-		console.log("Express server listening on port " + app.get('port'));
-	});
+    console.log('Connected to mongodb');
+    http.createServer(app).listen(app.get('port'), function(){
+	console.log("Express server listening on port " + app.get('port'));
+    });
 });
