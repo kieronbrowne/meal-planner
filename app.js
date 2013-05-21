@@ -12,6 +12,8 @@ var express = require('express')
 , mongoose = require('mongoose')
 , path = require('path')
 , auth = require('./controllers/auth')
+, user = require('./controllers/user')
+;
 
 var app = express();
 
@@ -37,7 +39,9 @@ app.configure('development', function(){
 
 app.get('/', controllers.index);
 
-app.post('/auth', auth.login);
+app.post('/auth/login', auth.login);
+
+app.get('/user', user.get);
 
 app.get('/recipe', recipe.list);
 app.post('/recipe/:id/addIngredient', recipe.addIngredient);
