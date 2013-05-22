@@ -5,6 +5,10 @@ define(
 	    
 	    template: _.template(userTemplate),
 
+	    tagName: 'li',
+
+	    className: 'dropdown pull-right',
+
 	    initialize: function() {
 		this.listenTo(this.model, 'change', this.render);
 	    },
